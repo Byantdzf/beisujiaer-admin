@@ -26,28 +26,28 @@ const data = [
     },
     component: () => import('@/view/home/home.vue')
   },
-  {
-    title: '广告管理',
-    path: 'advertising',
-    icon: 'md-cog',
-    meta: {
-      access: ['admin', 'paas_admin'],
-      hideInMenu: false,
-      notCache: true
-    },
-    component: () => import('@/view/advertising/list.vue')
-  },
-  {
-    title: '文章管理',
-    path: 'article',
-    icon: 'ios-ionic-outline',
-    meta: {
-      access: ['admin'],
-      hideInMenu: false,
-      notCache: true
-    },
-    component: () => import('@/view/article/list.vue')
-  },
+  // {
+  //   title: '广告管理',
+  //   path: 'advertising',
+  //   icon: 'md-cog',
+  //   meta: {
+  //     access: ['admin', 'paas_admin'],
+  //     hideInMenu: false,
+  //     notCache: true
+  //   },
+  //   component: () => import('@/view/advertising/list.vue')
+  // },
+  // {
+  //   title: '文章管理',
+  //   path: 'article',
+  //   icon: 'ios-ionic-outline',
+  //   meta: {
+  //     access: ['admin'],
+  //     hideInMenu: false,
+  //     notCache: true
+  //   },
+  //   component: () => import('@/view/article/list.vue')
+  // },
   {
     title: '用户管理',
     path: 'userlist',
@@ -70,26 +70,36 @@ const data = [
   //   },
   //   component: () => import('@/view/orders/list.vue')
   // },
+  // {
+  //   title: '检测管理',
+  //   path: 'detection-list',
+  //   icon: 'md-cog',
+  //   meta: {
+  //     access: ['admin', 'paas_admin'],
+  //     hideInMenu: false
+  //   },
+  //   component: () => import('@/view/detection/list.vue')
+  // },
   {
-    title: '兼职管理',
+    title: '检测类型',
     path: 'jobList',
-    icon: 'ios-wine',
+    icon: 'md-cog',
     meta: {
       access: ['admin', 'paas_admin'],
       hideInMenu: false
     },
     component: () => import('@/view/job/list.vue')
   },
-  {
-    title: '兼职类型',
-    path: 'md-contacts',
-    icon: 'md-cog',
-    meta: {
-      access: ['admin', 'paas_admin'],
-      hideInMenu: false
-    },
-    component: () => import('@/view/activity/list.vue')
-  },
+  // {
+  //   title: '兼职类型',
+  //   path: 'md-contacts',
+  //   icon: 'md-cog',
+  //   meta: {
+  //     access: ['admin', 'paas_admin'],
+  //     hideInMenu: false
+  //   },
+  //   component: () => import('@/view/activity/list.vue')
+  // },
   {
     title: '后台权限',
     path: 'admin',

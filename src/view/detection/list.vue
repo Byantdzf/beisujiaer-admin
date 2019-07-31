@@ -3,7 +3,7 @@
     <div v-model="activeTab">
       <Card>
         <Tabs @on-click="getTab">
-          <TabPane label="检测类型管理" name="search">
+          <TabPane label="检测管理列表" name="search">
             <Input
               v-model="searchKeyword"
               @on-enter="handleSearch"
@@ -12,9 +12,6 @@
             <span @click="handleSearch">
                         <Button type="primary" icon="ios-search"
                                 style=" margin-bottom: 22px;margin-left: 12px;">搜索</Button>
-                    </span>
-            <span @click="creatParty">
-                        <Button type="success" style=" margin-bottom: 22px; float: right;">新增检测标准</Button>
                     </span>
             <Table :loading="loading" :columns="Columns" :data="information" style="width: 100%;" border></Table>
             <Page :total="orgTotal" @on-change="handlePage" :page-size="15"
@@ -108,24 +105,24 @@
                       })
                     }
                   }
-                }, '编辑类型'),
-                h('Button', {
-                  props: {
-                    type: 'error'
-                  },
-                  style: {
-                    margin: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      // let argu = {id: params.row.id}
-                      // this.$router.push({
-                      //   name: 'activity_detail',
-                      //   params: argu
-                      // })
-                    }
-                  }
-                }, '删除类型'),
+                }, '编辑'),
+                // h('Button', {
+                //   props: {
+                //     type: 'warning'
+                //   },
+                //   style: {
+                //     margin: '5px'
+                //   },
+                //   on: {
+                //     click: () => {
+                //       let argu = {id: params.row.id}
+                //       this.$router.push({
+                //         name: 'activity_detail',
+                //         params: argu
+                //       })
+                //     }
+                //   }
+                // }, '活动现场'),
                 // h('Button', {
                 //   props: {
                 //     type: 'success'

@@ -3,63 +3,25 @@
     <Tabs @on-click="getTab">
       <TabPane :label='title' name="detail">
         <Row>
-          <Col span="22" style="margin: 22px">
+          <Col span="22" style="margin: 22px;min-height: 58vh;">
             <Card>
               <Form ref="activity" :model="activity" :label-width="100">
-                <FormItem label="兼职轮播" prop="image">
-                  <Card>
+                <FormItem label="对比图" prop="image">
+                  <Card style="max-width: 400px">
                     <uploadImage v-on:uploadPictures="uploadPicture" :pic="activity.poster"></uploadImage>
                   </Card>
                 </FormItem>
-                <FormItem label="兼职主题" prop="name">
+                <FormItem label="名称" prop="name">
                   <Input v-model="activity.theme" placeholder="Enter activity theme"></Input>
                 </FormItem>
-                <FormItem label="主办方" prop="name">
-                  <Row>
-                    <Input v-model="activity.host" placeholder="Enter activity host" :readonly="access=='admin'?false:true"></Input>
-                  </Row>
+                <FormItem label="检测色值" prop="name">
+                  <ColorPicker v-model="color" />
                 </FormItem>
-                <FormItem label="费用(￥)" prop="number">
-                  <Row>
-                    <Input v-model="activity.fee" placeholder="例： 99.00" ></Input>
-                  </Row>
-                </FormItem>
-                <FormItem label="详情图片" prop="image">
-                  <Card>
-                    <uploadImages v-on:uploadPictures="uploadPictures" :pic="activity.detail_pic"></uploadImages>
-                  </Card>
-                </FormItem>
-                <FormItem label="兼职说明" prop="name">
-                  <Row>
-                    <Input v-model="activity.detail" placeholder="Enter activity detail" type="textarea" :autosize="{minRows: 2,maxRows: 5}"></Input>
-                  </Row>
-                </FormItem>
-                <FormItem label="详情链接" prop="name">
-                  <Row>
-                    <Input v-model="activity.detail_path" placeholder="例：http://love.ufutx.com"></Input>
-                  </Row>
-                </FormItem>
-                <FormItem label="兼职时间" prop="name">
-                  <Row>
-                    <DatePicker type="datetimerange" format="yyyy-MM-dd HH:mm" placement="top" @on-change="getDate"
-                                placeholder="Select date and time(Excluding seconds)" style="width: 300px" :value="date"></DatePicker>
-                  </Row>
-                </FormItem>
-                <!--<FormItem label="活动地址" prop="name">-->
-                  <!--<Row>-->
-                    <!--&lt;!&ndash;<Input v-model="activity.province" placeholder="输入省份" style="max-width: 200px"></Input>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<Input v-model="activity.city" placeholder="输入活动城市" style="max-width: 200px"></Input>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<Input v-model="activity.dist" placeholder="输入市区" style="max-width: 200px"></Input>&ndash;&gt;-->
-                    <!--<v-distpicker @selected="onSelected" :province="activity.province" :city="activity.city" :area="activity.dist"></v-distpicker>-->
-                  <!--</Row>-->
-                <!--</FormItem>-->
-                <FormItem label="地址" prop="name">
-                  <Row>
-                    <!--<Input v-model="activity.address" placeholder="Enter activity address"></Input>-->
-                    <Input  placeholder="右侧地图定位选择地址" :value="address" style="width: 68%;margin-right: 22px;"
-                            :readonly="address?false:true" @input="editAddress"/>
-                    <Button type="primary" @click="showMapModel = true">地图定位</Button>
-                  </Row>
+                <FormItem label="结果说明" prop="name">
+                  <editor ref="editor" />
+                  <!--<div style="max-width: 400px">-->
+                    <!--<Input v-model="activity.detail" placeholder="Enter activity detail" type="textarea" :autosize="{minRows: 2,maxRows: 5}"></Input>-->
+                  <!--</div>-->
                 </FormItem>
               </Form>
               <div style="text-align: center">
@@ -69,15 +31,7 @@
           </Col>
         </Row>
       </TabPane>
-      <TabPane label='报名成员' name="activity" v-if="id != 0">
-        <Table :loading="loading" :columns="orgColumns" :data="information" style="width: 100%;" border></Table>
-        <Page :total="orgTotal" @on-change="handlePage" :page-size="15"
-              style="float:right;margin-top:5px;margin-bottom:30px;"></Page>
-      </TabPane>
     </Tabs>
-    <Modal v-model="showMapModel" width="860" title="活动地址" @on-ok="ok">
-      <Geolocation  @getLocation="getLocation"  @hideModal="hideModal" :setLocation="setLocation" ></Geolocation>
-    </Modal>
   </div>
 </template>
 
@@ -88,22 +42,24 @@
   //  import md5 from 'js-md5';
   //	import moment from 'moment';
   import Geolocation from '../components/Geolocation'
-  import uploadImages from '../components/uploadImages'
   import uploadImage from '../components/uploadImage'
   import dropdown from '../components/dropdown'
   import VDistpicker from 'v-distpicker'
+  import Editor from '_c/editor'
+
 
   export default {
     name: 'Org',
     components: {
       dropdown,
       uploadImage,
-      uploadImages,
       VDistpicker,
-      Geolocation
+      Geolocation,
+      Editor
     },
     data () {
       return {
+        color: '19be6b',
         articlesId: '',
         showMapModel: false,
         address: '',
@@ -114,7 +70,7 @@
         disabled: false,
         user_is_admin: 0,
         date: [],
-        title: '活动详情',
+        title: '类型详情',
         BtnText: '保存',
         loading: false,
         columns: [
@@ -436,7 +392,7 @@
         this.getlist()
         return
       }
-      this.title = this.BtnText = '创建活动'
+      this.title = this.BtnText = '新增检测结果'
       this.activity.host = localStorage.getItem('paas')
     }
   }
@@ -457,5 +413,8 @@
     padding: 0 12px !important;
     margin-right: 12px !important;
     font-size: 14px !important;
+  }
+  Input{
+    max-width: 400px;
   }
 </style>

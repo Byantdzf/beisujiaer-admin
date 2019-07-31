@@ -97,12 +97,19 @@ export default {
         });
     },
     watch: {
-        endVal (val) {
-            let res = transformValue(val);
-            let endVal = res.val;
-            this.unit = res.unit;
-           this.demo.update(endVal);
-        }
+      endVal(val) {
+        let res = transformValue(val);
+        let endVal = res.val;
+        this.unit = res.unit;
+        // 原先代码
+        // this.demo.update(endVal);
+        // 修改后的
+        this.$nextTick(() => {
+          setTimeout(() => {
+            this.demo.update(endVal);
+          }, this.delay);
+        });
+      }
     }
 };
 </script>

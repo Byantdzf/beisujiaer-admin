@@ -21,17 +21,17 @@
       </Tabs>
       <Modal
         v-model="modalCode"
-        title="权限配置"
+        title="添加管理员账号"
         @on-ok="ok"
       >
         <Input
           v-model="mobile"
           placeholder="登录手机号"
-          style="width: 160px; margin-bottom: 22px;"/>
+          style="width: 240px; margin-bottom: 22px;"/><br/>
         <Input
           v-model="code"
           placeholder="登录密码"
-          style="width: 160px; margin-bottom: 22px;"/>
+          style="width: 240px; margin-bottom: 22px;"/>
         <!--<Tree :data="baseData" :multiple="multiple" @on-select-change="changeTree"></Tree>-->
       </Modal>
     </Card>
@@ -153,13 +153,6 @@
         ],
         orgColumns: [
           {
-            title: 'ID',
-            key: 'adminId',
-            align: 'center',
-            width: 100,
-            editable: true
-          },
-          {
             title: 'UserID',
             key: 'id',
             align: 'center',
@@ -202,12 +195,6 @@
             align: 'center'
           },
           {
-            title: '单身/介绍人',
-            key: 'type',
-            align: 'center',
-            editable: true
-          },
-          {
             title: '权限类型',
             key: 'admin_type',
             align: 'center',
@@ -243,7 +230,14 @@
           }
         ],
         modal: false,
-        information: [],
+        information: [
+          {
+            id: 1,
+            name: 'admin',
+            admin_type: '管理员',
+            photo: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3762745400,2719224059&fm=27&gp=0.jpg'
+          }
+        ],
         title: '',
         addAdminId: 0,
         paasList: [],
@@ -425,8 +419,8 @@
       }
     },
     mounted () {
-      this.getlist(1)
-      this.getPaasList()
+      // this.getlist(1)
+      // this.getPaasList()
     }
   }
 </script>

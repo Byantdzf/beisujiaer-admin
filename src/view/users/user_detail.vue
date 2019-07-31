@@ -23,15 +23,6 @@
                 </div>
               </Card>
             </i-col>
-            <!--<i-col span="13" offset="1">-->
-              <!--<Card>-->
-                <!--<Select v-model="client_id" style="width: 300px;" filterable @on-query-change="getGropData">-->
-                  <!--<Option v-for="item in redMun" :value="item.id" :key="item.id">{{ item.name }}</Option>-->
-                <!--</Select>-->
-                <!--<Button type="success" style="margin-left: 8px" @click="allocation">将该用户分配给这位红娘</Button>-->
-                <!--<span style="color: red;margin-left: 12px" v-if="maker_name">{{maker_name}} 已跟进</span>-->
-              <!--</Card>-->
-            <!--</i-col>-->
           </Row>
         </div>
       </Card>
@@ -48,38 +39,21 @@
             <span class="font_16 _bold">用户名：</span>
             <span class="font_16">{{name}}</span>
           </div>
-          <!--<img src="http://images.ufutx.com/201905/13/61d92561553c6632cd2ac02924d0872e.png" alt=""-->
-               <!--v-if="is_approved == 0" style="position: absolute;left: 110px;top: 100px;" width="62">-->
-          <!--<img src="http://images.ufutx.com/201905/13/8d1228814a8697fc3de9d6b8b9c127f4.png" alt="" v-else-->
-               <!--style="position: absolute;left: 110px;top: 100px;" width="62">-->
-          <!--<img src="http://images.ufutx.com/201905/13/c4b37a0ffebbfdd9320c57e6d8e453b3.png" alt=""-->
-               <!--v-if="is_audited == 0" style="margin-left: 12px;margin-bottom: -16px;" width="62">-->
-          <!--<img src="http://images.ufutx.com/201905/13/20626fbd174313d584176c1d6bc74ef3.png" alt="" v-else-->
-               <!--style="margin-left: 12px;margin-bottom: -16px;" width="62">-->
           <div style="display: inline-block;margin-top: 22px;" v-if="user_is_admin==1">
-            <!--<Card>-->
-              <!--<Button type="primary" style="margin-left: 8px;margin-bottom: 8px;" @click="gotoEdit">编辑用户</Button>-->
-              <!--<Button type="warning" style="margin-left: 8px;margin-bottom: 8px;" @click="gotoUrl('user_order','id',id)">用户订单</Button>-->
-              <!--<Button type="warning" style="margin-left: 8px;margin-bottom: 8px;background-image: linear-gradient(-225deg, #A445B2 0%, #D41872 52%, #FF0066 100%);color: white;" @click="gotoUrl('userMembers','id',id)">用户会员</Button>-->
-              <!--<Button type="success" style="margin-left: 8px;margin-bottom: 8px;" @click="gotoUrl('user_integral','id',id)">福分记录</Button>-->
-              <!--<Button type="info" style="margin-left: 8px;margin-bottom: 8px;" @click="gotoUrl('user_gift','id',id)">礼物列表</Button>-->
-              <!--<Button type="error" style="margin-left: 8px;margin-bottom: 8px;" @click="showDeleteUser">删除用户</Button>-->
-              <!--<Button style="margin-left: 8px;margin-bottom: 8px;" @click="settNote">备注管理</Button>-->
-            <!--</Card>-->
           </div>
           <Table :columns="columns" :data="information" :show-header="false" :border="false"
                  style="margin-top: 26px"></Table>
         </Card>
       </Col>
       <Col span="13" offset="1" style="margin-top: 12px;position: relative">
-          <Card style="margin-top: 12px;">
-            <p slot="title">已报名兼职<span style="color: #ff0c18;font-weight: bold">（{{recommendTotal}}）</span></p>
-            <Table :loading="loading" :columns="recommendColumns" :data="recommendData" style="width: 100%;"
-                   border></Table>
-            <Page :total="recommendTotal" @on-change="handlePage" :page-size="15"
-                  style="float:right;margin-top:5px;margin-bottom:30px;"></Page>
-            <div style="clear: both"></div>
-          </Card>
+        <Card style="margin-top: 12px;">
+          <p slot="title">历史检测记录<span style="color: #ff0c18;font-weight: bold">（{{recommendTotal}}）</span></p>
+          <Table :loading="loading" :columns="recommendColumns" :data="recommendData" style="width: 100%;"
+                 border></Table>
+          <Page :total="recommendTotal" @on-change="handlePage" :page-size="15"
+                style="float:right;margin-top:5px;margin-bottom:30px;"></Page>
+          <div style="clear: both"></div>
+        </Card>
       </Col>
     </Row>
     <Modal
@@ -173,19 +147,54 @@
         ],
         recommendColumns: [
           {
-            title: '兼职id',
+            title: '序号',
             align: 'center',
             key: 'id'
           },
+          // {
+          //   title: '兼职名称',
+          //   align: 'center',
+          //   key: 'name'
+          // },
           {
-            title: '兼职名称',
-            align: 'center',
-            key: 'name'
+            title: '检测图片',
+            key: 'updatedAt',
+            render: (h, params) => {
+              return h('img', {
+                attrs: {
+                  src: 'http://images.ufutx.com/201907/03/d3058221db41bb6be32bb2cd2cdb884c.jpeg'
+                },
+                style: {
+                  width: '48px',
+                  height: '48px',
+                  // borderRadius: '50%',
+                  marginTop: '6px',
+                  border: '2px solid #f4f4f4'
+                },
+                on: {
+                  click: () => {
+                    let argu = { id: params.row.id }
+                    this.$router.push({
+                      name: 'user_detail',
+                      params: argu
+                    })
+                  }
+                }
+              })
+            },
+            align: 'center'
           },
           {
-            title: '报名时间',
+            title: '检测时间',
             align: 'center',
-            key: 'is_approved'
+            key: 'created_at'
+          },
+          {
+            title: '状态/结果',
+            align: 'center',
+            render: (h, params) => {
+              return h('span', '酮体')
+            }
           },
           {
             title: '操作',
@@ -195,23 +204,22 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'primary',
-                    size: 'small'
+                    type: 'error'
                   },
                   style: {
                     margin: '5px'
                   },
                   on: {
                     click: () => {
-                      let argu = {id: params.row.id}
-                      const {href} = this.$router.resolve({
+                      let argu = { id: params.row.id }
+                      const { href } = this.$router.resolve({
                         name: 'user_detail',
                         params: argu
                       })
                       window.open(href, '_blank')
                     }
                   }
-                }, '查看兼职')
+                }, '删除记录')
               ])
             }
           }
@@ -300,7 +308,7 @@
         this.recommend(num)
       },
       gotoEdit () {
-        let argu = {edit_id: this.id}
+        let argu = { edit_id: this.id }
         this.$router.push({
           name: 'edit_user_detail',
           params: argu
@@ -334,7 +342,7 @@
         })
       },
       settNote () {
-        let argu = {id: this.id}
+        let argu = { id: this.id }
         this.$router.push({
           name: 'user_note',
           params: argu
@@ -492,41 +500,10 @@
             self.identification_photos = result.profile.identification_photos
             self.wechat_qrcode = result.profile.wechat_qrcode
             self.information = [
-              {
-                name: 'openid',
-                key: result.openid
-              },
+
               {
                 name: '手机号',
                 key: result.mobile
-              },
-              {
-                name: '性别',
-                key: result.sex == '1' ? '男' : '女'
-              },
-              {
-                name: '出生日期',
-                key: result.profile.birthday
-              },
-              {
-                name: '地址',
-                key: result.profile.resident_city
-              },
-              {
-                name: '学历',
-                key: result.profile.degree
-              },
-              {
-                name: '毕业学校',
-                key: result.profile.graduate_school
-              },
-              {
-                name: '工作类型',
-                key: result.profile.company
-              },
-              {
-                name: '活动类型',
-                key: result.profile.work_sort
               },
               {
                 name: '加入时间',

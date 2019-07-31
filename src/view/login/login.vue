@@ -5,11 +5,11 @@
 <template>
   <div class="login ">
     <div class="login-con">
-      <Card icon="ios-analytics" class="interim" title="后台管理系统" :bordered="false" v-if="!changeCode">
+      <Card icon="ios-analytics" class="interim" title="健康AI纸尿裤管理系统" :bordered="false" v-if="!changeCode">
         <div class="form-con">
           <login-form @on-success-valid="handleSubmit" :load="loading"></login-form>
-          <p class="login-tip">【】 -- 后台
-            <a style="float: right;" @click="changeCode=true">忘记密码？</a>
+          <p class="login-tip">【健康AI纸尿裤】 -- 后台
+            <a style="float: right;"></a>
           </p>
         </div>
       </Card>

@@ -18,20 +18,7 @@
     <!--</Card>-->
     <Card>
       <Tabs @on-click="getTab">
-        <TabPane label='已完善资料' name="org">
-          <Input
-            v-model="searchKeyword"
-            @on-enter="createLabel"
-            placeholder="搜索用户..."
-            style="width: 200px; margin-bottom: 22px;"/>
-          <span @click="createLabel">
-                <Button type="primary" icon="ios-search" style="margin-left: 12px; margin-bottom: 22px;">搜索</Button>
-              </span>
-          <Table :loading="loading" :columns="Columns" :data="information" style="width: 100%;" border></Table>
-          <Page :total="orgTotal" @on-change="handlePage" :page-size="15"
-                style="float:right;margin-top:5px;margin-bottom:30px;"></Page>
-        </TabPane>
-        <TabPane label='未完善资料' name="noOrg">
+        <TabPane label='用户列表' name="org">
           <Input
             v-model="searchKeyword"
             @on-enter="createLabel"
@@ -107,12 +94,10 @@
             title: 'ID',
             align: 'center',
             key: 'id',
-            width: 80
           },
           {
             title: '头像',
             key: 'updatedAt',
-            width: 80,
             render: (h, params) => {
               return h('img', {
                 attrs: {
@@ -147,17 +132,6 @@
             title: '手机号',
             align: 'center',
             key: 'mobile',
-            width: 120
-          },
-          {
-            title: '性别',
-            align: 'center',
-            key: 'sex'
-          },
-          {
-            title: '地址',
-            align: 'center',
-            key: 'address'
           },
           {
             title: '加入时间',
