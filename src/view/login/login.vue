@@ -60,12 +60,12 @@
           if (res.code === 1) {
             return setTimeout(() => {
               _this.loading = false
-              _this.$Message.error(res.data.message || '系统错误')
+              _this.$Message.error(res.message || '系统错误')
             }, 1000)
           } else if (res.code === 2) {
             return setTimeout(() => {
               _this.loading = false
-              _this.$Message.error(res.data.message || '你尚未注册')
+              _this.$Message.error(res.message || '你尚未注册')
             }, 1000)
           } else {
             _this.$Message.loading({
