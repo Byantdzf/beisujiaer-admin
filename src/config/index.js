@@ -13,7 +13,7 @@ export default {
    * @description api请求基础路径
    */
   baseUrl: {
-      dev: 'http://love.hankin.ufutx.cn/api/',
-      pro: 'http://love.ufutx.com/api/'
+      dev: 'http://color.hankin.ufutx.cn/api/',
+      pro: 'http://color.hankin.top/api/'
   }
 }
